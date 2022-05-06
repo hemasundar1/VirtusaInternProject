@@ -20,20 +20,21 @@ export class AdminappliedloanComponent implements OnInit {
   }
  approveLoan(t:any)
   {
-     this.adminappliedloan.editStatusA(t.applicantLoanId,t).subscribe(data=>
+     this.adminappliedloan.editStatusA(t.loan_id,t).subscribe(data=>
       this.src=data);
       window.location.reload();
   }
   rejectLoan(t:any)
   {
-    this.adminappliedloan.editStatusR(t.applicantLoanId,t).subscribe(data=>
+    this.adminappliedloan.editStatusR(t.loan_id,t).subscribe(data=>
       this.src=data);
-      window.location.reload();
+    window.location.reload();
   }
   private appliedloan()
   {
     this.adminappliedloan.appliedLoan().subscribe(data=>{
       this.admindata=data;
+      console.log(this.admindata);
     })
   }
 }

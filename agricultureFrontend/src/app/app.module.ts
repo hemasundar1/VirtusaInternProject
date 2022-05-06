@@ -37,6 +37,7 @@ import { CustomerloanstatusComponent } from './user/customerloanstatus/customerl
 import { CreateCustprofileComponent } from './user/create-custprofile/create-custprofile.component';
 import { ProfileListComponent } from './user/profile-list/profile-list.component';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +62,7 @@ import { UpdateProfileComponent } from './user/update-profile/update-profile.com
     CreateCustprofileComponent,
     ProfileListComponent,
     UpdateProfileComponent,
+
   ],
   imports: [
     BrowserModule,

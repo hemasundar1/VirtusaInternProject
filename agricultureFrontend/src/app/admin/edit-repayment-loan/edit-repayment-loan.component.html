@@ -3,11 +3,11 @@
     <form >
         <div class="form-group">
             <label>Loan Amount Required</label><br>
-            <input type="text" [(ngModel)]="admindata.loanAmountRequired" name="loanAmountRequired" class="form-control" >
+            <input type="text" [(ngModel)]="admindata.loan_amount_required" name="loanAmountRequired" class="form-control" >
         </div><br>
         <div class="form-group">
             <label>Loan Repayment Months</label><br>
-            <input type="text" [(ngModel)]="admindata.loanRepaymentMonths" name="loanRepaymentMonths" class="form-control">
+            <input type="text" [(ngModel)]="admindata.loan_repayment_months" name="loanRepaymentMonths" class="form-control">
         </div><br>
         <button style="width: 3cm;" (click)="onSubmit(admindata)" type="submit" class="btn btn-primary btn-sm">Update</button>
         <button style="margin-left: 10cm;width: 3cm;" (click)="cancel()"  type="button" class="btn btn-danger btn-sm">Cancel</button>

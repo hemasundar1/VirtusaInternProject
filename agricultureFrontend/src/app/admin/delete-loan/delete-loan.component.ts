@@ -16,8 +16,9 @@ export class DeleteLoanComponent implements OnInit {
   constructor(private router:Router,private adminService:AdminAppliedLoanService,private status:AdminapprovedloanComponent,private route:ActivatedRoute) { }
    loanId:any=null;
   ngOnInit(): void {
-    this.getappliedLoans();
     this.loanId=this.route.snapshot.params['id'];
+    this.getappliedLoans();
+    console.log("the loan id is ", this.loanId);
   }
   public getappliedLoans()
 {

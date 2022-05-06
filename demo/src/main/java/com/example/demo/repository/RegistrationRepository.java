@@ -10,11 +10,4 @@ public interface RegistrationRepository extends JpaRepository<UserModel, Long>{
 
 	public UserModel findByEmailId(String email);
 
-	
-	
-
-
-	
-	
-
 }

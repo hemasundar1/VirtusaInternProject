@@ -9,7 +9,6 @@ import { AdminModel } from './admin-model';
 })
 export class AdminAppliedLoanService {
   emiID!:number;
-  //private baseURL="https://8080-dcadabebddbacefbdfdddddfcfcccadbbff.examlyiopb.examly.io/"
   private baseURL="http://localhost:8080/"
   private editloan=this.baseURL+"admin/generateSchedule"
   private getAllLoans=this.baseURL+"admin/getAllLoans"

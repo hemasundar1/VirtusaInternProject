@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,7 +21,7 @@ public class Customer {
   
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long loan_id;
+	private int loan_id;
 	
 	@Column(name="name")
 	private String name;
@@ -47,18 +47,26 @@ public class Customer {
 	@Column(name="loan_amount_required")
 	private int loan_amount_required;
 	
+	
+
 	@Column(name="loan_repayment_months")
 	private int loan_repayment_months;
 	
+	@Column(name="Status")
+	private String status;
+	
+	@Column(name="EMI_Amount")
+	private Integer emi=0;
+	
 	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Document document;
-
+	
 	public Customer(){
 		
 	}
 	
 	public Customer(String name, String address, String emailid, String mobile_no, String adhaar_no, String pan_no,
-			int salary, int loan_amount_required, int loan_repayment_months,Document document)  {
+			int salary, int loan_amount_required, int loan_repayment_months,int emi,String status,Document document)  {
 		super();
 		this.name = name;
 		this.address = address;
@@ -69,13 +77,16 @@ public class Customer {
 		this.salary = salary;
 		this.loan_amount_required = loan_amount_required;
 		this.loan_repayment_months = loan_repayment_months;
+		this.emi=emi;
+		this.status=status;
 		this.setDocument(document);
 		
 	}
-	public long getLoan_id() {
+	
+	public int getLoan_id() {
 		return loan_id;
 	}
-	public void setLoan_id(long loan_id) {
+	public void setLoan_id(int loan_id) {
 		this.loan_id = loan_id;
 	}
 	
@@ -132,6 +143,22 @@ public class Customer {
 	}
 	public void setLoan_repayment_months(int loan_repayment_months) {
 		this.loan_repayment_months = loan_repayment_months;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Integer getEmi() {
+		return emi;
+	}
+
+	public void setEmi(Integer emi) {
+		this.emi = emi;
 	}
 
 	public Document getDocument() {

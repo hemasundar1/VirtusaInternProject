@@ -44,6 +44,7 @@ public getappliedLoans()
   //for editing the editing the loan
   editLoan(id:number)
   {
+    console.log("we are in editing LOAN ",id);
     this.router.navigate(['/admin/editLoan',id]);
   }
   //for generating schedule

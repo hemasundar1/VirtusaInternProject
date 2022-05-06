@@ -30,7 +30,7 @@ export class DeleteRepaymentScheduleComponent implements OnInit {
   }
   public conform(t:any)
   {
-   this.adminservice.deletePaymentSchedule(t.applicantLoanId,t).subscribe(data=>
+   this.adminservice.deletePaymentSchedule(t.loan_id,t).subscribe(data=>
     this.src=data);
     console.log(this.src);
    window.alert("Schedule for "+this.loanId+" Deleted Successfully");

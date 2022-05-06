@@ -48,7 +48,7 @@ public class Customer_controller {
 	@GetMapping("/addLoan")
 	public List<Customer> getAllEmployees()
 	{
-		return customerRepository.findAll();
+		return (List<Customer>) customerRepository.findAll();
     }
 	@PostMapping("/addLoan")
 	public Customer addloan(@RequestBody Customer customer)
@@ -65,6 +65,13 @@ public class Customer_controller {
     	return profilerepository.save(profile);
     	
     }
+	
+	@GetMapping("/viewStatus") 
+	public List<Customer> approveLoan()
+	{
+		System.out.println("inside all approved loan");
+		return (List<Customer>) customerRepository.findAll();
+	}
 	
 
 	@PutMapping("/profile/{loanid}")

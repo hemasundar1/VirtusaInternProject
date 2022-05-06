@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Customer;
 import com.example.demo.model.LoanApplicantModel;
+import com.example.demo.repository.Customer_repository;
 import com.example.demo.service.LoanApplicantAdminService;
 
 @RestController
@@ -21,27 +23,31 @@ import com.example.demo.service.LoanApplicantAdminService;
 @RequestMapping("/admin/")
 public class AdminController {
 	
+	@Autowired
+	public Customer_repository adminRepository;
 	
-	private LoanApplicantAdminService adminservice=new LoanApplicantAdminService();
+	@Autowired
+	private LoanApplicantAdminService adminservice;
 	
 	//for loan details admin rest API
 	@GetMapping("/getAllLoans")
-	public List<LoanApplicantModel> approveLoan()
+	public List<Customer> approveLoan()
 	{
 		System.out.println("inside all approved loan");
-		return (List<LoanApplicantModel>) adminservice.approvedLoan();
+		return (List<Customer>) adminRepository.findAll();
 	}
 	//for edit LOAN
 	@PutMapping("/editLoan/{id}") 
-	public ResponseEntity<LoanApplicantModel> editLoan(@PathVariable int id,@RequestBody LoanApplicantModel repaymentUser)
+	public ResponseEntity<Customer> editLoan(@PathVariable int id,@RequestBody Customer repaymentUser)
 	{
 		return adminservice.editLoan(id, repaymentUser);	
 	}
 	//for getting findById
 	@GetMapping("/deleteLoan/{id}")
-	public ResponseEntity<LoanApplicantModel> getById(@PathVariable int id)
+	public ResponseEntity<Customer> getById(@PathVariable int id)
 	{
-		LoanApplicantModel admin= adminservice.getById(id);
+		System.out.println("Get by ID for DELETE");
+		Customer admin= adminservice.getById(id);
 		return ResponseEntity.ok(admin);
 	}
 	
@@ -49,41 +55,49 @@ public class AdminController {
 	@DeleteMapping("/deleteLoan/{id}")
 	public ResponseEntity<Map<String,Boolean>> deleteLoan(@PathVariable int id)
 	{
-		LoanApplicantModel admin= adminservice.getById(id);
+		System.out.println("IN delete to DELETE");
+		Customer admin= adminservice.getById(id);
 		adminservice.deleteloan(admin);
 		Map<String,Boolean>response=new HashMap<>();
 		response.put("deleted",Boolean.TRUE);
 		return ResponseEntity.ok(response);	
 	}
 	//for approving the status
+	
 	@PutMapping("/editStatusA/{id}")
-	public ResponseEntity<LoanApplicantModel> editstatusA(@PathVariable int id,@RequestBody LoanApplicantModel userObj)
+	public ResponseEntity<Customer> editstatusA(@PathVariable int id,@RequestBody Customer userObj)
 	{
+		System.out.println("Approved loan calling in service");
+		System.out.println(id+" "+userObj);
 		return adminservice.editstatusA(id, userObj);
 	}
 	//for rejecting the status
 	@PutMapping("/editStatusR/{id}")
-	public ResponseEntity<LoanApplicantModel> editstatusR(@PathVariable int id,@RequestBody LoanApplicantModel userObj)
+	public ResponseEntity<Customer> editstatusR(@PathVariable int id,@RequestBody Customer userObj)
 	{
 		return adminservice.editstatusR(id, userObj);
 	}
+	
+	
 	//for editing Repayment Schedule
 	@PutMapping("/editRepaymentSchedule/{id}") 
-	public ResponseEntity<LoanApplicantModel> editRepaymentSchedule(@PathVariable int id,@RequestBody LoanApplicantModel repaymentUser)
+	public ResponseEntity<Customer> editRepaymentSchedule(@PathVariable int id,@RequestBody Customer repaymentUser)
 	{
+		System.out.println("we are in EDIT REPAYMENT SCHEDULE");
 		deleteRepaymentSchedule(id,repaymentUser);
 		return adminservice.editRepaymentSchedule(id, repaymentUser);	
 	}
 	@GetMapping("/generateSchedule/{id}")
 	public int calculateEmi(@PathVariable int id)
 	{
-		LoanApplicantModel admin= adminservice.getById(id);
+		Customer admin= adminservice.getById(id);
 	   return  adminservice.calculateEmi(admin);
 	}
 	//for delete the repayment Schedule
 	@PutMapping("/deleteRepaymentSchedule/{id}")
-	public ResponseEntity<LoanApplicantModel> deleteRepaymentSchedule(@PathVariable int id,@RequestBody LoanApplicantModel repaymentuser)
+	public ResponseEntity<Customer> deleteRepaymentSchedule(@PathVariable int id,@RequestBody Customer repaymentuser)
 	{
+		System.out.println("we are in DELETE REPAYMENT SCHEDULE");
 		return adminservice.deleteRepaymentSchedule(id, repaymentuser);	
 	}
 }

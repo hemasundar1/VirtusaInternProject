@@ -27,7 +27,7 @@ export class EditRepaymentScheduleComponent implements OnInit {
   //submit method
 onSubmit(t:any)
 {
-      this.adminservice.editRepayment(t.applicantLoanId,t).subscribe(data=>
+      this.adminservice.editRepayment(t.loan_id,t).subscribe(data=>
         this.src=data);
         console.log(this.src);
       window.alert("Updated the edit Repayment Schedule for "+this.loanId+" Successfully DONE !!");

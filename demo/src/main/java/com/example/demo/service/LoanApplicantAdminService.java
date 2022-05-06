@@ -5,107 +5,110 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.example.demo.model.LoanApplicantModel;
-import com.example.demo.repository.LoanApplicantRepository;
+import com.example.demo.model.Customer;
+import com.example.demo.model.profile;
+import com.example.demo.repository.Customer_repository;
+
 
 @Service
 public class LoanApplicantAdminService {
 	
-	
-	private LoanApplicantRepository adminRepository;
+	@Autowired
+	public Customer_repository adminRepo;
 
-	private LoanApplicantModel adminmodel=new LoanApplicantModel();
+	//private Customer adminmodel=new Customer();
 	
 	//for loan details data
-	public List<LoanApplicantModel> approvedLoan()
+	public List<Customer> approvedLoan()
 	{
-		System.out.println("Inside findall service");
-		return (List<LoanApplicantModel>)adminRepository.findAll();
+		System.out.println("Inside find All service");
+		return (List<Customer>)adminRepo.findAll();
 	}	
 	
 	//for get by Id data
-	public LoanApplicantModel getById(int id)
+	public Customer getById(int id)
 	{
-		return (LoanApplicantModel) adminRepository.findById(id)
-				.orElseThrow(()-> new ResourceNotFoundException("Loan does not exist with id :"+id));
+		System.out.println("it is in getBYID");
+		return adminRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("check the id:"+id));
+		
 	}
+
 	
 	//for deleting the loan 
-	public void deleteloan(LoanApplicantModel am)
+	public void deleteloan(Customer am)
 	{
-		adminRepository.delete(am);
+		adminRepo.delete(am);
 	}
-	 
+	
 	//for editing status as Approved
-	public ResponseEntity<LoanApplicantModel>  editstatusA(int id,LoanApplicantModel userObj)
+	public ResponseEntity<Customer>  editstatusA(int id,Customer userObj)
 	{
-		LoanApplicantModel userobj=adminRepository.getById(id);
+		Customer userobj=adminRepo.getById(id);
 		userobj.setStatus("Approved");
-		LoanApplicantModel user=adminRepository.save(userobj);
+		Customer user=adminRepo.save(userobj);
 		return ResponseEntity.ok(user);
 	}
 	//for editing status as Rejected
-	public ResponseEntity<LoanApplicantModel>  editstatusR(int id,LoanApplicantModel userObj)
+	public ResponseEntity<Customer>  editstatusR(int id,Customer userObj)
 	{
-		LoanApplicantModel userobj=adminRepository.getById(id);
+		Customer userobj=adminRepo.getById(id);
 		userobj.setStatus("Rejected");
-		LoanApplicantModel user=adminRepository.save(userobj);
+		Customer user=adminRepo.save(userobj);
 		return ResponseEntity.ok(user);
 	}
 	//for editing the LOAN 
-	public ResponseEntity<LoanApplicantModel> editLoan(int id,LoanApplicantModel repaymentUser)
+	public ResponseEntity<Customer> editLoan(int id,Customer repaymentUser)
 	{
-		LoanApplicantModel repaymentuser=adminRepository.getById(id);
-		repaymentuser.setApplicantName(repaymentUser.getApplicantName());
-		repaymentuser.setApplicantAadhar(repaymentUser.getApplicantAadhar());
-		repaymentuser.setApplicantAddress(repaymentUser.getApplicantAddress());
-		repaymentuser.setApplicantEmail(repaymentUser.getApplicantEmail());
-		repaymentuser.setApplicantPan(repaymentUser.getApplicantPan());
-		repaymentuser.setApplicantPhone(repaymentUser.getApplicantPhone());
-		repaymentuser.setApplicantSalary(repaymentUser.getApplicantSalary());
-		repaymentuser.setLoanAmountRequired(repaymentUser.getLoanAmountRequired());
-		repaymentuser.setLoanRepaymentMonths(repaymentUser.getLoanRepaymentMonths());
-		LoanApplicantModel user=adminRepository.save(repaymentuser);
+		Customer repaymentuser=adminRepo.getById(id);
+		repaymentuser.setName(repaymentUser.getName());
+		repaymentuser.setAdhaar_no(repaymentUser.getAdhaar_no());
+		repaymentuser.setAddress(repaymentUser.getAddress());
+		repaymentuser.setEmailid(repaymentUser.getEmailid());
+		repaymentuser.setPan_no(repaymentUser.getPan_no());
+		repaymentuser.setMobile_no(repaymentUser.getMobile_no());
+		repaymentuser.setSalary(repaymentUser.getSalary());
+		repaymentuser.setLoan_amount_required(repaymentUser.getLoan_amount_required());
+		repaymentuser.setLoan_repayment_months(repaymentUser.getLoan_repayment_months());
+		Customer user=adminRepo.save(repaymentuser);
 		return ResponseEntity.ok(user);
 	}
 	//for editing the repayment schedule
-	public ResponseEntity<LoanApplicantModel> editRepaymentSchedule(int id,LoanApplicantModel repaymentUser)
+	public ResponseEntity<Customer> editRepaymentSchedule(int id,Customer repaymentUser)
 	{
-		LoanApplicantModel repaymentuser=adminRepository.getById(id);
-		repaymentuser.setLoanAmountRequired(repaymentUser.getLoanAmountRequired());
-		repaymentuser.setLoanRepaymentMonths(repaymentUser.getLoanRepaymentMonths());
-		LoanApplicantModel user=adminRepository.save(repaymentuser);
+		Customer repaymentuser=adminRepo.getById(id);
+		repaymentuser.setLoan_amount_required(repaymentUser.getLoan_amount_required());
+		repaymentuser.setLoan_repayment_months(repaymentUser.getLoan_repayment_months());
+		Customer user=adminRepo.save(repaymentuser);
 		return ResponseEntity.ok(user);
 	}
 	
 	//for delete the repayment Schedule
-	public ResponseEntity<LoanApplicantModel> deleteRepaymentSchedule(int id,LoanApplicantModel repaymentUser)
+	public ResponseEntity<Customer> deleteRepaymentSchedule(int id,Customer repaymentUser)
 	{
-		LoanApplicantModel repaymentuser=adminRepository.getById(id);
+		Customer repaymentuser=adminRepo.getById(id);
 		int a=0;
 		repaymentuser.setEmi(a);
-		LoanApplicantModel user=adminRepository.save(repaymentuser);
+		Customer user=adminRepo.save(repaymentuser);
 		return ResponseEntity.ok(user);
 	}
 	
-	public int getLoanID(LoanApplicantModel am)
+	public int getLoanID(Customer am)
 	{
-		return am.getApplicantLoanId();
+		return am.getLoan_id();
 	}
 	
 	//for calculating the EMI
-	public int calculateEmi(LoanApplicantModel am)
+	public int calculateEmi(Customer am)
 	{
-		int x=Integer.parseInt(am.getLoanAmountRequired());
-		int y=Integer.parseInt(am.getLoanRepaymentMonths());
+		int x=am.getLoan_amount_required();
+		int y=am.getLoan_repayment_months();
+		System.out.println(am.getLoan_repayment_months());
 		int z=(x/y);
 		am.setEmi(z);
-		adminRepository.save(am);
+		adminRepo.save(am);
 		return z;
 	}
-
-	
-	
 
 }
 
